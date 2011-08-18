@@ -9,3 +9,4 @@ constants.py
 .DS_STORE
 *.db
 .idea/
+*~
