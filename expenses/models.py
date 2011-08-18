@@ -9,7 +9,8 @@ class Person(models.Model):
     name = models.CharField(max_length=100)
     def __init__(self,*args,**kwargs):
         super(Person,self).__init__(*args, **kwargs)
-        self.name = self.user.get_full_name()
+        if hasattr(self, 'user'):
+            self.name = self.user.get_full_name()
 
     def get_absolute_url(self):
         """
