@@ -25,54 +25,28 @@ class HouseholdTransactionForm(ModelForm):
     
 
 class InviteToHouseholdForm(ModelForm):   
+
     household = forms.ModelChoiceField(widget=forms.HiddenInput(),queryset=Household.objects.all())
-    invited_user = forms.CharField(max_length=100, label='username', required=True)
+    inviter = forms.ModelChoiceField(widget=forms.HiddenInput(),queryset=Person.objects.all())
+    invitee = forms.ModelChoiceField(label="Person to Invite",queryset=Person.objects.all())
     
     class Meta:
         model = Invited
-        exclude = ('user',)
-          
-    def clean_invited_user(self):
-        model = super(InviteToHouseholdForm, self).save(commit=False)
-        check_user_exists = User.objects.filter(username__iexact=self.cleaned_data['invited_user'])
-        check_user_in_household = Household.objects.filter(name__exact=self.cleaned_data['household'].name).filter(persons__user__username__iexact=self.cleaned_data['invited_user'])
-        check_user_invited = Invited.objects.filter(household__name__exact=self.cleaned_data['household'].name).filter(user__username__iexact=self.cleaned_data['invited_user'])
-        
-        if not check_user_exists:
-            raise forms.ValidationError("The username does not exist.")
-        if check_user_in_household:
-            msg_in_household = "This user is already part of this household."
-            raise forms.ValidationError([msg_in_household])
-        if check_user_invited:
-            #existing_user = self.cleaned_data['invited_user']
-            msg_invited = "This user has already been invited to this household"#{{ self.cleaned_data['household'] }}." #, self.cleaned_data['invited_user'], self.cleaned_data['household']
-            raise forms.ValidationError([msg_invited])
 
-        
-        return self.cleaned_data['invited_user']
-            
-    def save(self, commit=True):
-        m = super(InviteToHouseholdForm, self).save(commit=False)
-        m.user = User.objects.get(username=self.cleaned_data['invited_user'])
-        
-        if commit:
-            m.save()
-		
-        return m
-    
-    
+    def __init__(self,*args,**kwargs):
+        super(InviteToHouseholdForm,self).__init__(*args,**kwargs)
+        self.fields['invitee'].queryset = Person.objects.exclude(pk = self.initial['inviter'].pk)
+
 
 class HouseholdCreateForm(ModelForm):
-	class Meta:
-		model = Household
-		fields = ('name',)
-	def save(self, force_insert=False, force_update=False, commit=True):
-# don't really get this, just copied it from stackoverflow
-		m = super(HouseholdCreateForm, self).save(commit=False)
-		if commit:
-			m.save()
-		m.persons.add(self.initial['person'])
-		return m
+    class Meta:
+        model = Household
+        fields = ('name',)
+    def save(self, commit=True):
+        m = super(HouseholdCreateForm, self).save()
+        m.persons.add(self.initial['person'])
+        m.save()
+        return m
 
 class ProfileUpdateForm(ModelForm):
     first_name = forms.CharField('first name')
@@ -86,6 +60,7 @@ class ProfileUpdateForm(ModelForm):
         u = self.instance.user
         user_stuff = dict([('email', u.email), ('first_name', u.first_name), ('last_name', u.last_name)])
         self.initial.update(user_stuff)
+        
     def save(self, force_insert=False, force_update=False, commit=True):
         m = super(ProfileUpdateForm, self).save(commit=False)
         m.user.first_name = self.cleaned_data['first_name']
@@ -99,12 +74,7 @@ class ProfileUpdateForm(ModelForm):
 class MyRegistrationForm(RegistrationForm):
 	first_name = forms.CharField('first name')
 	last_name = forms.CharField('first name')
-	def save(self, profile_callback=None):
-		m = super(MyRegistrationForm, self).save(profile_callback=None)
-		m.first_name = self.cleaned_data['first_name']
-		m.last_name = self.cleaned_data['last_name']
-		m.save()
-		return m
+
 	def __init__(self, *args, **kwargs):
 		super(RegistrationForm, self).__init__(*args, **kwargs)
 		self.fields.keyOrder = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']

@@ -25,6 +25,10 @@ class Person(models.Model):
     class Meta:
         verbose_name_plural = "people"
 
+    @classmethod
+    def getPersonFromUser(cls,user):
+        return user.person_set.all()[0]
+
 
 class Household(models.Model):
     name = models.CharField("Household name", max_length=100, null=True, blank=True)
@@ -143,16 +147,17 @@ class Multiplier(models.Model):
         unique_together = (('person', 'transaction'),)
       
 class Invited(models.Model):
-    user = models.ForeignKey(User)
+    invitee = models.ForeignKey(Person,related_name='invited_set')
     household = models.ForeignKey(Household)
-    invitation_date = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
+    invitation_date = models.DateTimeField(auto_now_add=True)
     message = models.TextField(null=True, blank=True)
+    inviter = models.ForeignKey(Person,related_name='inviter_set')
     
     def __unicode__(self):
-        return 'Household: %s, Invitee: %s' % (self.household, self.user)
+        return 'Household: %s, tee: %s, ted: %s' % (self.household, self.invitee, self.inviter)
         
     class Meta:
         """
         unique between a household and invitees
         """
-        unique_together = (('household', 'user'),)
+        unique_together = (('household', 'invitee', 'inviter'),)
