@@ -27,6 +27,15 @@ def render_person(person):
     """
     return dict(person = person)
 
+@register.inclusion_tag('expenses/invite.html')
+def render_invite(invite):
+    """
+    render html for a single person
+    """
+    return dict(invite = invite)
+
+
+
 @register.inclusion_tag('expenses/balance_table.html')
 def render_balance_table(household):
     """

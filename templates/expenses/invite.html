@@ -1,0 +1,19 @@
+{% load expenses %}
+<div class="invite">
+    <h3>
+        Household
+    </h3>
+    {% render_household_pv invite.household %}
+    <h3>
+        Date
+    </h3>
+    {{ invite.invitation_date }}
+    <h3>
+        Inviter
+    </h3>
+    {{ invite.inviter }}
+    <h3>
+        Welcome Message
+    </h3>
+    {{ invite.message }}
+</div>

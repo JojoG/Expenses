@@ -6,6 +6,7 @@
 <div class="household_transactions">
     <a href="{% url household_transactions household.pk %}">Transactions </a>
 	{% render_household_transaction_create household %}
+	<a href="{% url invite_to_household household.pk %}"> Invite a User </a>
 </div>
 
 {% render_balance_table household %}

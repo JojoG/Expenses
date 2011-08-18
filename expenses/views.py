@@ -3,9 +3,10 @@ from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import FormView, CreateView, UpdateView
 from django.views.generic.list import ListView
-from expenses.forms import HouseholdTransactionForm, HouseholdCreateForm
+from expenses.forms import HouseholdTransactionForm, HouseholdCreateForm, InviteToHouseholdForm
+from expenses.models import Person
 from expenses.utils import user_in_household
-from models import Household, Transaction
+from models import Household, Transaction, Invited
 
 
 class HouseholdTransactionsView(ListView):
@@ -47,6 +48,18 @@ class HouseholdTransactionUpdateView(UpdateView):
     success_url = '/'
     template_name = 'expenses/transaction_edit.html'
     model = Transaction
+    
+class InviteToHouseholdCreateView(CreateView):
+    form_class = InviteToHouseholdForm
+    success_url = '/'
+    template_name = 'expenses/invite_to_household_form.html'
+    model = Invited
+
+    def get_initial(self):
+        initial = super(InviteToHouseholdCreateView,self).get_initial()
+        if self.kwargs.has_key('pk'):
+            initial.update(dict(inviter=Person.getPersonFromUser(self.request.user),household = get_object_or_404(Household,pk=self.kwargs['pk'])))
+        return initial    
 
 class HouseholdCreateView(CreateView):
 	form_class = HouseholdCreateForm
@@ -54,5 +67,5 @@ class HouseholdCreateView(CreateView):
 	success_url = '/'
 	def get_initial(self):
 		initial = super(HouseholdCreateView,self).get_initial()
-		initial.update(dict(person = self.request.user.person_set.all()[0]))
+		initial.update(dict(person = Person.getPersonFromUser(self.request.user)))
 		return initial

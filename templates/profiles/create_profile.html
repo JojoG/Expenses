@@ -3,6 +3,6 @@
 <h1>Create Profile</h1>
     <form method="post" action="{% url profiles_create_profile %}">
 	{% csrf_token %}
-	{{form}}
+	{{form.as_p}}
 	<input type="submit" name="post" class="submit-post" value="Post">
 {% endblock content %}

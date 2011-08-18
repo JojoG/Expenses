@@ -9,7 +9,8 @@ class Person(models.Model):
     name = models.CharField(max_length=100)
     def __init__(self,*args,**kwargs):
         super(Person,self).__init__(*args, **kwargs)
-        self.name = self.user.get_full_name()
+        if hasattr(self, 'user'):
+            self.name = self.user.get_full_name()
 
     def get_absolute_url(self):
         """
@@ -23,6 +24,10 @@ class Person(models.Model):
         return self.__unicode__()
     class Meta:
         verbose_name_plural = "people"
+
+    @classmethod
+    def getPersonFromUser(cls,user):
+        return user.person_set.all()[0]
 
 
 class Household(models.Model):
@@ -54,14 +59,9 @@ class Household(models.Model):
         for k,v in table.iteritems():
             person = self.persons.get(id=k)
             person.balance = v['down'] - v['up']
+            person.balance_dollar = '$%.2f' % round(person.balance, 3)
             out_persons.append(person)
         return out_persons
-
-            
-
-            
-
-
         
 
 class Transaction(models.Model):
@@ -145,3 +145,19 @@ class Multiplier(models.Model):
         unique on a person and transaction
         """
         unique_together = (('person', 'transaction'),)
+      
+class Invited(models.Model):
+    invitee = models.ForeignKey(Person,related_name='invited_set')
+    household = models.ForeignKey(Household)
+    invitation_date = models.DateTimeField(auto_now_add=True)
+    message = models.TextField(null=True, blank=True)
+    inviter = models.ForeignKey(Person,related_name='inviter_set')
+    
+    def __unicode__(self):
+        return 'Household: %s, tee: %s, ted: %s' % (self.household, self.invitee, self.inviter)
+        
+    class Meta:
+        """
+        unique between a household and invitees
+        """
+        unique_together = (('household', 'invitee', 'inviter'),)

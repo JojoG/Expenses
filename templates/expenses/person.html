@@ -15,4 +15,14 @@
             {% endfor %}
         </ul>
     </div>
+    <div class="person_households_invites">
+    <h2>
+        Invited Households
+    </h2>
+        <ul>
+            {% for invite in person.invited_set.all %}
+            <li> {% render_invite invite %} </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
