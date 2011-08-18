@@ -16,4 +16,11 @@
         Welcome Message
     </h3>
     {{ invite.message }}
+    <div class="join_invite">
+        <h3>
+            <a href="{% url join_invite invite.pk %}">
+                Join!
+            </a>
+        </h3>
+    </div>
 </div>

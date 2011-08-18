@@ -5,8 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.decorators import login_required
 from expenses.models import Person, Household, Transaction, Invited
 from expenses.utils import user_in_household, user_is_person
-from expenses.views import HouseholdTransactionsView, HouseholdTransactionCreateView, HouseholdTransactionUpdateView, HouseholdCreateView, InviteToHouseholdCreateView
-
+from expenses.views import HouseholdTransactionsView, HouseholdTransactionCreateView, HouseholdTransactionUpdateView, HouseholdCreateView, InviteToHouseholdCreateView, JoinInviteView
 
 
 admin.autodiscover()
@@ -22,4 +21,6 @@ urlpatterns = patterns('',
    url(r'^household/(?P<pk>\d+)/transactions/$', HouseholdTransactionsView.as_view(), name='household_transactions'),
    #url(r'^household/(?P<pk>\d+)/invite/$',CreateView.as_view(model=Invite,success_url="/" ), name='invite_to_household'),
    url(r'^household/(?P<pk>\d+)/invite/$',InviteToHouseholdCreateView.as_view(),name='invite_to_household'),
+   url(r'^join_invite/(?P<pk>\d+)/invite/$',JoinInviteView.as_view(),name='join_invite'),
+
 )

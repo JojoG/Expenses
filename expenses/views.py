@@ -1,6 +1,7 @@
 # Create your views here.
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView, CreateView, UpdateView
 from django.views.generic.list import ListView
 from expenses.forms import HouseholdTransactionForm, HouseholdCreateForm, InviteToHouseholdForm
@@ -69,3 +70,13 @@ class HouseholdCreateView(CreateView):
 		initial = super(HouseholdCreateView,self).get_initial()
 		initial.update(dict(person = Person.getPersonFromUser(self.request.user)))
 		return initial
+
+class JoinInviteView(DetailView):
+    template_name = 'expenses/expenses_base.html'
+    model = Invited
+
+    def get_object(self, queryset=None):
+        invite = super(JoinInviteView,self).get_object(queryset)
+        invite.invitee.household_set.add(invite.household)
+        invite.invitee.save()
+        return invite
