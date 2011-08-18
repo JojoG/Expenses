@@ -555,7 +555,7 @@
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="improper to assume user field already exists in init" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed your pull to make everything work, please inspect the diff of the commit" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -578,6 +578,7 @@
     <MESSAGE value="comments added, enjoy boys" />
     <MESSAGE value="removed db and added to .gitignore" />
     <MESSAGE value="improper to assume user field already exists in init" />
+    <MESSAGE value="fixed your pull to make everything work, please inspect the diff of the commit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
