@@ -41,6 +41,7 @@ STATIC_ROOT = absPath('static')
 
 TEMPLATE_CONTEXT_PROCESSORS = (
         'django.contrib.auth.context_processors.auth',
+        "django.contrib.messages.context_processors.messages",
 )
 
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
