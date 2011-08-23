@@ -1,14 +1,21 @@
-<div class="balance_table">
-    <table class="balance_table">
+<h3>
+    Balance
+</h3>
+<div class="balance_table table-well">
+    <table class="common-table zebra-striped">
+    <thead>
     <tr>
         <th> Name </th>
         <th> Balance </th>
     </tr>
+    </thead>
+    <tbody>
     {% for person in household.balance %}
     <tr>
         <td> {{ person.name }} </td>
         <td> {{ person.balance_dollar }} </td>
     </tr>
     {% endfor %}
+    </tbody>
 	</table>
 </div>

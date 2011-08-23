@@ -1,14 +1,14 @@
-<div class="household_detail">
+<div class="household_detail household-well">
 {% load expenses %}
     <div class="household_header">
-		<h1> <a href="{% url household household.pk %}"> {{ household.name }} </a> </h1>
-    </div>
-<div class="household_transactions">
-    <a href="{% url household_transactions household.pk %}">Transactions </a>
-	{% render_household_transaction_create household %}
-	<a href="{% url invite_to_household household.pk %}"> Invite a User </a>
-</div>
+            <h1> <a href="{% url household household.pk %}"> {{ household.name }} </a> </h1>
+        <span class="household-buttons button-well">
+            <a class="btn" href="{% url household_transactions household.pk %}">Transactions </a>
+            {% render_household_transaction_create household %}
+            <a class="btn" href="{% url invite_to_household household.pk %}"> Invite a User </a>
+        </span>
 
+    </div>
 {% render_balance_table household %}
 
 </div>

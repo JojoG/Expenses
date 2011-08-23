@@ -5,7 +5,8 @@
     Transactions for <span class="household_name"><a href="{% url household household.pk %}">{{ household.name }}</a></span>
     </h1>
     {% render_household_transaction_create household %}
-    <table class="transaction_table">
+    <table class="common-table zebra-striped">
+    <thead>
     <tr>
 		<th> Edit </th>
         <th> Date </th>
@@ -16,10 +17,12 @@
         <th> {{ person.name }} </th>
         {% endfor %}
     </tr>
+    </thead>
+    <tbody>
     {% for transaction in transactions %}
         <tr>
         <td>
-            <a href="{% url transaction_edit transaction.pk %}">
+            <a class="btn" href="{% url transaction_edit transaction.pk %}">
                 Edit
             </a>
         </td>
@@ -42,6 +45,7 @@
             {% endfor %}
         </tr>
     {% endfor %}
+    </tbody>
     </table>
 
 	{% render_balance_table household %}

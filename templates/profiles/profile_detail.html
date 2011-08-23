@@ -9,7 +9,7 @@
     <br/>
     {% if not noProfile %}
         <h2> Profile <a href="{% url profiles_edit_profile %}">Edit </a> </h2>
-    <ul>
+    <ul class="unstyled">
         <li> <b>User:</b> {{ profile.user }} </li>
         <li> <b>First Name: </b> {{ profile.user.first_name }} </li>
         <li> <b>Last Name: </b> {{ profile.user.last_name }} </li>

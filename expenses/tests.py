@@ -25,7 +25,12 @@ class CreatePersonTest(FollowTestCase):
 
     @classmethod
     def jackUser(cls):
-        jack = User(first_name = 'Jack',last_name = 'Reilly',username='jackdreilly',password='jack1234',email='jackdreilly@gmail.com')
+        return cls.userWithUN('jackdreilly')
+
+
+    @classmethod
+    def userWithUN(cls, un):
+        jack = User(first_name = 'Jack',last_name = 'Reilly',username=un,password='jack1234',email='jackdreilly@gmail.com')
         return jack
 
     @classmethod
@@ -33,10 +38,16 @@ class CreatePersonTest(FollowTestCase):
         return Person(user=user, name = "jackie jackie")
 
     @classmethod
-    def jackperson(cls):
-        jackuser = cls.jackUser()
+    def personUN(cls,un):
+        jackuser = cls.userWithUN(un)
         jackuser.save()
         return cls.person(jackuser)
+
+    @classmethod
+    def jackperson(cls):
+        return cls.person(cls.jackUser())
+
+
 
     
     def test_make_user(self):
@@ -77,7 +88,7 @@ class CreateHouseholdTest(FollowTestCase):
         household = self.jackHousehold()
         self.assertEqual(household.name, "sick household", msg='household name success')
         self.assertEqual(household.persons.count(), 1,msg='people in household')
-        self.assertLess(household.creation_date , datetime.now(),msg='creation date less than now? that\'s good')
+        self.assertLess(household.creation_date , datetime.now(),msg='creation date bootstrap than now? that\'s good')
         self.assertGreater(Household.objects.filter(name="sick household").count(), 0,msg='db stored hh with name')
 
 
@@ -107,3 +118,12 @@ class CreateTransactionTest(FollowTestCase):
         self.assertTrue(all([val == single_mult_value for val in mult_values]),msg='all mults have same init value')
 
 
+class CreateInviteTest(FollowTestCase):
+
+    @classmethod
+    def createInvite(cls):
+        u1 = CreatePersonTest.personUN('jackie')
+        u2 = CreatePersonTest.personUN('jill')
+        u1.save()
+        u2.save()
+        

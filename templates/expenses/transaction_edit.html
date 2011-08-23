@@ -3,9 +3,9 @@
     <h1>
     Edit Transaction for <span class="household_name"><a href="{% url household form.instance.household.pk %}">{{ form.instance.household.name }}</a></span>
     </h1>
-<form method="POST" action="">
+<form method="POST" action="" class="form-stacked">
 {% csrf_token %}
 {{ form.as_p }}
-<input type="submit" value="Submit Transaction">
+<input class="btn primary" type="submit" value="Submit Transaction">
 </form>
 {% endblock content %}

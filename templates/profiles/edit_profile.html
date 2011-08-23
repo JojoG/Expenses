@@ -1,8 +1,8 @@
 {% extends "profiles/profiles_base.html" %}
 {% block content %}
 <h1>Edit Profile</h1>
-<form method="post" action="{% url profiles_edit_profile %}">
+<form method="post" action="{% url profiles_edit_profile %}" class="form-stacked">
 	{% csrf_token %}
 	{{form.as_p}}
-<input type="submit" name="post" class="submit-post" value="Post">
+<input type="submit" name="post" class="btn primary" value="Post">
 {% endblock content %}
