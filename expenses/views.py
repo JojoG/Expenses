@@ -52,7 +52,7 @@ class HouseholdTransactionUpdateView(UpdateView):
     
 class InviteToHouseholdCreateView(CreateView):
     form_class = InviteToHouseholdForm
-    success_url = '/'
+    success_url = '/?popup=1&popup_type=invite'
     template_name = 'expenses/invite_to_household_form.html'
     model = Invited
 

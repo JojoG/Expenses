@@ -90,6 +90,7 @@ INSTALLED_APPS = (
     'profiles',
     'registration',
     'expenses',
+    'bootstrap',
 )
 
 LOGGING = {

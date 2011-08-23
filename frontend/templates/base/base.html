@@ -4,6 +4,9 @@
     <title>
         Balanceer
     </title>
+{% block scripts %}
+{% include "base/scripts.html" %}
+{% endblock %}
     {% block styles %}
     {% include "base/styles.html" %}
     {% endblock styles %}
@@ -11,6 +14,7 @@
 <body>
 {% include "base/topbar.html" %}
 <div class="container">
+{% include "base/modal.html" %}
 <section id="content" class="border-box">
         {% block content %}
         {%  endblock content %}

@@ -1,0 +1,17 @@
+<div class="modal">
+          <div class="modal-header">
+            <h3>{{ modal.title }}</h3>
+            <a href="#" class="close">×</a>
+          </div>
+          <div class="modal-body">
+            <p>{{ modal.body }}</p>
+          </div>
+          <div class="modal-footer">
+              {% if modal.button1 %}
+            <a href="#" class="btn primary close">{{ modal.button1 }}</a>
+                  {% endif %}
+          {% if modal.button2 %}
+            <a href="#" class="btn secondary">{{ modal.button2 }}</a>
+              {%  endif %}
+          </div>
+        </div>

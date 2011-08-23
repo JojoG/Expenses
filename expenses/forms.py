@@ -1,7 +1,5 @@
 from django import forms
 from django.forms.models import ModelForm
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.models import User
 from expenses.models import Transaction, Household, Person, Invited
 from registration.forms import RegistrationForm
 

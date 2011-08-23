@@ -8,11 +8,11 @@
     <table class="common-table zebra-striped">
     <thead>
     <tr>
-		<th> Edit </th>
-        <th> Date </th>
-		<th> Transactor </th>
-		<th> Cost </th>
-		<th> Tax </th>
+		<th class="header yellow"> Edit </th>
+        <th class="header red"> Date </th>
+		<th class="header blue"> Transactor </th>
+		<th class="header green"> Cost </th>
+		<th class="header purple"> Tax </th>
         {% for person in household.persons|order_by:"name" %}
         <th> {{ person.name }} </th>
         {% endfor %}

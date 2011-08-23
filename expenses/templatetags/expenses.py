@@ -1,3 +1,5 @@
+from bootstrap.templatetags.bootstrap import render_popup
+
 __author__ = 'jackdreilly'
 
 from django import template
@@ -54,6 +56,13 @@ def render_transaction_create(household):
 @register.inclusion_tag('expenses/household_transaction_create_tag.html')
 def render_household_transaction_create(household):
     return dict(household=household)
+
+@register.inclusion_tag('popup.html')
+def render_household_popup():
+    popup = dict(body="This creates a new household",title="New Household")
+    return render_popup(popup, 'right',35,850)
+
+
 
 @register.filter_function
 def order_by(queryset, args):
