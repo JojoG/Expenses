@@ -1,12 +1,12 @@
 {% load expenses %}
 <div class="person_detail">
     <div class="person_header row">
-        <div class="span8">
+        <div class="span6">
             <h1>
                 {{ person.user.get_full_name}}'s Households
             </h1>
         </div>
-        <div class="span8">
+        <div class="span10">
             <a class="btn primary large household-create" href="{% url household_create %}"> Create New Household </a>
             {% render_household_popup %}
         </div>

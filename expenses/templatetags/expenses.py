@@ -60,7 +60,7 @@ def render_household_transaction_create(household):
 @register.inclusion_tag('popup.html')
 def render_household_popup():
     popup = dict(body="This creates a new household",title="New Household")
-    return render_popup(popup, 'right',35,850)
+    return render_popup(popup, 'right',-40,0)
 
 
 

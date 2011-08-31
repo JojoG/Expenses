@@ -1,4 +1,5 @@
-          <div class="popover {{ popup.direction }}" style="top: {{ popup.top }}px;left: {{ popup.left }}px;display: inherit;">
+<div class="popover-wrapper" style="display:inline;position:relative;">
+          <div class="popover {{ popup.direction }}" style="display:inherit;{% if popup.left %}left:{{popup.left}}px;{%endif%}{% if popup.top %}top:{{popup.top}}px;{%endif%}">
             <div class="arrow"></div>
             <div class="inner">
               <h3 class="title">{{ popup.title }}</h3>
@@ -7,3 +8,4 @@
               </div>
             </div>
           </div>
+</div>

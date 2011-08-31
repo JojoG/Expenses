@@ -70,8 +70,8 @@ class ProfileUpdateForm(ModelForm):
         return m
 
 class MyRegistrationForm(RegistrationForm):
-	first_name = forms.CharField('first name')
-	last_name = forms.CharField('first name')
+	first_name = forms.CharField(max_length=50, label='First Name')
+	last_name = forms.CharField(max_length=50, label='Last Name')
 
 	def __init__(self, *args, **kwargs):
 		super(RegistrationForm, self).__init__(*args, **kwargs)

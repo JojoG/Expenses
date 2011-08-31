@@ -1,8 +1,17 @@
 dependencies:
 
-django-registration
+django-registration (from bitbucket)
 django-profiles
 south
+django-devserver https://github.com/dcramer/django-devserver {
+pip install git+git://github.com/dcramer/django-devserver#egg=django-devserver
+pip install sqlparse
+pip install werkzeug
+pip install https://guppy-pe.svn.sourceforge.net/svnroot/guppy-pe/trunk/guppy
+pip install line_profiler
+}
+
+
 
 in the main directory (here), create a constants.py file:::
 

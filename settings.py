@@ -91,6 +91,7 @@ INSTALLED_APPS = (
     'registration',
     'expenses',
     'bootstrap',
+    'devserver',
 )
 
 LOGGING = {
@@ -110,6 +111,17 @@ LOGGING = {
         },
     }
 }
+
+DEVSERVER_MODULES = (
+    'devserver.modules.sql.SQLRealTimeModule',
+    'devserver.modules.sql.SQLSummaryModule',
+    'devserver.modules.profile.ProfileSummaryModule',
+    'devserver.modules.ajax.AjaxDumpModule',
+    'devserver.modules.profile.MemoryUseModule',
+    'devserver.modules.cache.CacheSummaryModule',
+    'devserver.modules.profile.LineProfilerModule',
+)
+DEVSERVER_IGNORED_PREFIXES = [MEDIA_URL,STATIC_URL]
 
 AUTH_PROFILE_MODULE = 'expenses.Person'
 ACCOUNT_ACTIVATION_DAYS = 7
